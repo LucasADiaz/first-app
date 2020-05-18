@@ -43,23 +43,33 @@ inOrden = (path) => {
 }
 
 
+// si queremos controlar el error
 countFilesWithLetter = (path, letter) => {
-    let rootDir = fs.readdirSync(path);
-    let count = 0;
-    rootDir.forEach(element => {
-        if (element.charAt(0) === letter) {
-            count++;
+    fs.readdir(path, (error, archivos) => {
+        //si da error, lo mostramos
+        if (error) {
+            logger.log('error: ', error);
+        } else {
+            //de existir archivos, entonces contamos las coincidencias
+            let count = 0;
+            archivos.forEach(element => {
+                if (element.charAt(0) === letter) {
+                    count++;
+                }
+            });
+            logger.log(`El numero de archivos que comienzan con '${letter}' `, count);
         }
     });
-    console.log(`El numero de archivos que comienzan con '${letter}' `, count);
 }
 
 
 
-// se exportan las funciones a utilizar
-module.exports.fileSync = fileSync;
-module.exports.fileAsync = fileAsync;
-module.exports.allFiles = allFiles;
-module.exports.inverseOrden = inverseOrden;
-module.exports.inOrden = inOrden;
-module.exports.countFilesWithLetter = countFilesWithLetter;
+// se exportan las funciones a utilizar como un objeto
+module.exports = {
+    fileSync,
+    fileAsync,
+    allFiles,
+    inverseOrden,
+    inOrden,
+    countFilesWithLetter
+}
