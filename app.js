@@ -1,27 +1,23 @@
 const logger = require('./logger');
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
-
-// se comprueba las rutas
-let pathObj = path.parse(__filename);
-
-logger.log('path', pathObj);
-
-// Memoria libre y ocupada
-let freeMem = os.freemem();
-let totalMem = os.totalmem();
-
-logger.log(freeMem, totalMem);
-
-// leer directorio | Sincrono
-
-let rootDir = fs.readdirSync('./')
+const dir = require('./dir');
 
 
-// leer directorio / Asincrono
-fs.readdir('./', (err, files) => {
-    (err) ? console.log(err): console.log('async', files);
-});
 
-console.log('sync', rootDir);
+//crear un metodo que se obtenga todos los archivos, que se mande por path
+
+dir.fileSync('./');
+dir.fileAsync('./');
+
+//crear un metodo para hacer un print de todos los archivos
+
+dir.allFiles();
+
+//a partir de todos los archivos, hacer un sort y despues imprimirlo
+
+dir.inOrden('./');
+
+// console.log('invertido | reverse');
+// dir.inverseOrden('./');
+
+//log de la cantidad de archivos que empiecen con una letra en particular
+dir.countFilesWithLetter('./', 'a');
