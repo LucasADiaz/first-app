@@ -37,14 +37,14 @@ inOrden = (path) => {
 
 // metodo que imprime la cantidad de archivos que inician con una letra ingresada por parametro
 countFilesWithLetter = (path, letter) => {
-    fs.readdir(path, (error, archivos) => {
+    fs.readdir(path, (error, files) => {
         //si da error, lo mostramos
         if (error) {
             logger.log('error: ', error);
         } else {
             //de existir archivos, entonces contamos las coincidencias
             let count = 0;
-            archivos.forEach(element => {
+            files.forEach(element => {
                 if (element.charAt(0) === letter) {
                     count++;
                 }
@@ -64,3 +64,9 @@ module.exports = {
     inOrden,
     countFilesWithLetter
 }
+
+// module.exports.getAllFiles = getAllFiles;
+// module.exports.printAllFiles = printAllFiles;
+// module.exports.inverseOrden = inverseOrden;
+// module.exports.inOrden = inOrden;
+// module.exports.countFilesWithLetter = countFilesWithLetter;
