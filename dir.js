@@ -45,7 +45,6 @@ inOrden = (path) => {
 
 countFilesWithLetter = (path, letter) => {
     let rootDir = fs.readdirSync(path);
-    console.log(letter);
     let count = 0;
     rootDir.forEach(element => {
         if (element.charAt(0) === letter) {
@@ -54,6 +53,8 @@ countFilesWithLetter = (path, letter) => {
     });
     console.log(`El numero de archivos que comienzan con '${letter}' `, count);
 }
+
+
 
 // se exportan las funciones a utilizar
 module.exports.fileSync = fileSync;
