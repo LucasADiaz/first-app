@@ -3,47 +3,39 @@ const logger = require('./logger');
 
 
 //metodo que devuelve un array con los archivos de todo el directorio './' 
-allFiles = () => {
-    let rootDir = fs.readdirSync('./');
-    logger.log('todas las rutas', rootDir);
-}
-
-
-//metodo que devuelve un array con los archivos del directorio seleccionado | Sync
-fileSync = (path) => {
+getAllFiles = (path) => {
     let rootDir = fs.readdirSync(path);
-    logger.log('por path | sync', rootDir);
+    return rootDir;
 }
 
-
-//metodo que devuelve un array con los archivos del directorio seleccionado | Async
-fileAsync = (path) => {
-    // leer directorio / Asincrono
-    fs.readdir(path, (err, files) => {
-        (err) ? logger.log(err): logger.log('por path | async', files);
+//metodo que imprime todos los archivos de todo el directorio './' 
+printAllFiles = () => {
+    fs.readdir('./', (error, files) => {
+        (error) ? logger.log('error es: ', error): logger.log('todas las rutas (sin parametro)', files);
     });
+
 }
 
 
-//metodo que devuelve un array con los archivos del directorio seleccionado | en orden inverso
+
+
+//metodo que imprime un array con los archivos del directorio seleccionado | en orden inverso
 inverseOrden = (path) => {
-    let rootDir = fs.readdirSync(path).reverse();
-    //otra forma
-    // let rootInverseOrden = rootDir.reverse();
-    logger.log('Inverso | sync', rootDir);
+    fs.readdir(path, (error, files) => {
+        (error) ? logger.log('error es: ', error): logger.log('Imprimir en Orden Inverso', files.sort().reverse());
+    });
 }
 
 
 //metodo que devuelve un array con los archivos del directorio seleccionado | ordenado
 inOrden = (path) => {
-    let rootDir = fs.readdirSync(path).sort();
-    //otra forma
-    // let rootInOrden = rootDir.sort();
-    logger.log('En orden | sync', rootDir);
+    fs.readdir(path, (error, files) => {
+        (error) ? logger.log('error es: ', error): logger.log('Imprimir en Orden', files.sort());
+    });
 }
 
 
-// si queremos controlar el error
+// metodo que imprime la cantidad de archivos que inician con una letra ingresada por parametro
 countFilesWithLetter = (path, letter) => {
     fs.readdir(path, (error, archivos) => {
         //si da error, lo mostramos
@@ -66,9 +58,8 @@ countFilesWithLetter = (path, letter) => {
 
 // se exportan las funciones a utilizar como un objeto
 module.exports = {
-    fileSync,
-    fileAsync,
-    allFiles,
+    getAllFiles,
+    printAllFiles,
     inverseOrden,
     inOrden,
     countFilesWithLetter
